@@ -5,4 +5,6 @@
 #  c 
 # 10 
 
-# The c() function creates a vector by combining its elements.  The left-hand-side c indicates the name of the single argument, which is the character 'c'.  The final c is a local variable that evaluates to the number 10.
+# The c() function creates a vector by combining its elements.  
+# The left-hand-side c indicates the name of the single argument, which is the character 'c'.  
+# The final c is a local variable that evaluates to the number 10. 
