@@ -1,0 +1,44 @@
+# Everything in a call
+add <- function(x, y){x + y}
+add(1,1)
+n <- c(1,2,3,4,5)
+sapply(n, add, 2) # 2 is the y argument.
+#####################################################
+
+l <- list(1:3, 5:6, 9:12)
+sapply(l, `[`, 2) # Take the second of all stage of the list
+# Same as:
+sapply(l, function(x){x[2]})
+##################################################### 
+
+args <- list(1:10)
+mean(args) # does not work as expected:
+mean(1:10)
+
+## first possibility:
+mean(args[[1]]) 
+## or:
+do.call(mean, args)
+
+## Other argument could be sent to the mean function (or other one):
+args <- list(c(1,2,3,4,5,6,NA_integer_), na.rm = T)
+# following will work:
+do.call(mean, args)
+# but following does not work
+args <- list(c(1,2,3,4,5,6,NA_integer_))
+do.call(mean, args) # return: NA, due to NA_integer_
+
+## What if several stage in the list?
+args <- list(1:10, 1:20, 5:50)
+## Means of all separate different stage:
+sapply(args, mean)
+## with global mean:
+mean(sapply(args, mean))
+
+## Missing arguments:
+f <- function(a){missing(a)}
+f() # TRUE
+f(1) # FALSE
+# What about if default value has been defined:
+f <- function(a = 1){missing(a)}
+f() # TRUE
