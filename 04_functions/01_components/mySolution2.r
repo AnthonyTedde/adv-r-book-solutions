@@ -1,6 +1,52 @@
-# 2
+#################################################################
+# 2 This code makes a list of all functions in the base package.
+#################################################################
+
 objs <- mget(ls('package:base'), inherits = T)
 funs <- Filter(is.function, objs)
+
+################### 
+# Decrypt the code
+################### 
+
+# List all components of the base package:
+list_base_package <- ls('package:base')
+
+# How many components are listed in this package:
+length(list_base_package) # 1220
+
+# mget function
+# -> Search by name for an object (get) or [0,n] objets (mget)
+#
+# Example of get (it will return the function source.)
+# formals, body and environment could be called for the return of that get
+#
+s <- get('source')
+formals(s)
+body(s)
+environment(s)
+class(s) # function
+typeof(s) # closure
+str(s) # function(all args listed)
+# 
+# Example of mget
+# 
+function_list <- mget(list_base_package, inherits = T)
+# if inherit is not provided, I get the following error:
+# [inherit]: Should the enclosing frames of the environment be searched?
+mget(list_base_package, inherits = F)
+# What information about mget return value:
+str(function_list) # List of 1200
+class(function_list) # "list"
+typeof(function_list) # "list"
+# How to get information about the list items of mget return value:
+function_list[1]
+function_list[[1]]
+names(function_list[1])
+ 
+################################################
+# a. Which base function has the most arguments
+################################################# 
 
 args_1 <- args <- lapply(funs, function(x){formals(x)})
 args_2 <- lapply(funs, formals)

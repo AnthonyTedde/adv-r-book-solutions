@@ -1,3 +1,97 @@
+############
+# Functions
+############
+# 
+# Function components
+# 
+# * body()
+# * formals()
+# * environment()
+# 
+f <- function(x) x^2
+
+body(f)
+formals(f)
+environment(f)
+
+# Important note: The previous function does not work for primitive functions
+
+# 
+# Lexical function
+# 
+# -> Scopting is the set of rules that govern how R looks up the value of a symbol
+#
+# Two type of scoping: lexical / dynamic scoping.
+# Here it will focus on lexical scoping
+#
+
+#
+# Name Masking
+# ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+x <- 2
+g <- function(){
+  y <- 3
+  c(x, y)
+}
+g()
+x <- 3
+g()
+rm(g)
+# ---------------------------------------------------------------------------- #
+
+# ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+x <- 1
+h <- function() {
+  y <- 2
+  i <- function() {
+    z <- 3
+    c(x, y, z)
+  }
+  i() 
+}
+h()
+
+# Or the following are equal:
+x <- 1
+h <- function() {
+  y <- 2
+  i <- function() {
+    z <- 3
+    c(x, y, z)
+  }
+}
+h()()
+# By the execution of the previous code, only x and h has been created
+# in GlobalEnv
+rm(list = ls())
+# ---------------------------------------------------------------------------- #
+
+# Closure are functions created by other functions:
+# ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+j <- function(x) {
+  y <- 2
+  function(){
+    c(x, y)
+  }
+}
+k <- j(1)
+k()
+environment(k)
+environmentName(k)
+rm(list = ls())
+# ---------------------------------------------------------------------------- #
+# -> it works because k preserves the environment  in whinch it was defined.
+# easily check with function: environment(k)
+
+
+#
+# Function VS Variables
+#
+# A fresh start
+#
+# Dynamic lookup
+
+
 # Everything in a call
 add <- function(x, y){x + y}
 add(1,1)
